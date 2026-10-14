@@ -78,8 +78,9 @@
     border-radius:8px;padding:10px 12px;margin-top:14px;
   }
 
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+  .grid > *, .grid3 > *, .ref-row > *{min-width:0;}
   .full{grid-column:1/-1;}
 
   label{
@@ -132,9 +133,14 @@
   .ref-row{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr .8fr;gap:10px;margin-bottom:10px;}
   .ref-row label{font-size:11px;color:var(--slate);}
   @media (max-width:640px){
-    .grid,.grid3{grid-template-columns:1fr;}
-    .ref-row{grid-template-columns:1fr 1fr;}
+    body{padding:16px 10px 72px;}
+    .wrap{width:100%;}
+    .section{padding:20px 16px;}
+    .grid,.grid3{grid-template-columns:minmax(0,1fr);}
+    .ref-row{grid-template-columns:repeat(2,minmax(0,1fr));}
     .hero{padding:26px 20px;}
+    .submit-bar{gap:12px;flex-wrap:wrap;}
+    input[type=text],input[type=date],input[type=tel],input[type=email],input[type=number],select,textarea{min-width:0;max-width:100%;}
   }
 
   .certify-box{
@@ -220,9 +226,13 @@
 <div class="field-wrap full" style="margin-bottom:16px;"><label>Full name<span class="req">*</span></label>
 <input autocomplete="name" name="full_name" placeholder="First and last name" required="required" type="text"/></div>
 <div class="grid" style="margin-bottom:16px;">
+<div class="field-wrap"><label>Date of birth<span class="req">*</span></label>
+<input autocomplete="bday" name="date_of_birth" required="required" type="date"/></div>
 <div class="field-wrap"><label>Age<span class="req">*</span></label>
 <input inputmode="numeric" name="age" placeholder="Age" required="required" type="number"/></div>
-<div class="field-wrap"><label>Gender<span class="req">*</span></label>
+</div>
+<div class="field-wrap" style="margin-bottom:16px;">
+<label>Gender<span class="req">*</span></label>
 <select name="gender" required="required">
 <option value="">Select one</option>
 <option value="Female">Female</option>
@@ -230,7 +240,6 @@
 <option value="Non-binary">Non-binary</option>
 <option value="Prefer not to say">Prefer not to say</option>
 </select>
-</div>
 </div>
 <div class="field-wrap full" style="margin-bottom:16px;"><label>Current address<span class="req">*</span></label>
 <input autocomplete="street-address" name="current_address" placeholder="Street address, city, state, ZIP" required="required" type="text"/></div>
